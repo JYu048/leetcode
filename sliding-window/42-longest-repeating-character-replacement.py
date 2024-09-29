@@ -26,3 +26,25 @@ class Solution:
         
         return res
     
+
+    # Optimal Solution
+    def characterReplacement(self, s: str, k: int) -> int:
+
+        res = 0
+        count = defaultdict(int) # Tracks count of each char in sliding window
+        left = 0
+        maxf = 0
+        
+        for r, char in enumerate(s):
+            
+            count[char] += 1
+            maxf = max(maxf, count[char])
+
+            while (r - left + 1) - maxf > k:
+                count[s[left]] -= 1
+                left += 1
+
+            
+            res = max(res, r - left + 1)
+        
+        return res
